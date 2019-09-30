@@ -1,0 +1,69 @@
+\chapter{Proposal}\label{ch:eval}
+
+\section{}
+
+\subsection{How SPB works}
+
+The focus of SPB is to create an ecosystem where producers and consumers can trade and negotiate energy prices on a network with the added protection of anonymity. To achieve this, we use a public Ethereum PoW blockchain to store and verify transactions as well as a tamper proof smart meter to connect consumers and producers to the network.
+
+\subsection{How SPB solves the problems mentioned}
+
+We cover the solutions to the problems mentioned but we will mainly focus on the Blockchain overhead.
+
+\textbf{Lack of Privacy}
+
+To address the lack of privacy, SPB users have multiple energy accounts, which ensures anonymity and privacy as no single transaction can be traced back to a specific user. The Certificate of Existence is used to anonymously verify a smart meter without revealing the true identity of the meter, which eliminates potential unverified smart meters from participating in the network of legitimate users.
+
+
+\textbf{Reliance on Trusted Third Parties}
+
+Traditionally, a trusted third party can view all actions performed by those in the network, so transaction processing is slow and compromises the privacy of users on the network. With SPB, users can act as producers and consumers. Instead of energy flowing from a central source as it is for the current energy infrastructure, energy flows between those that use it, thus removing a central point of failure and decreasing transaction costs between peers.
+
+Atomic meta transactions are used to instantly and securely exchange cryptocurrencies, and are an essential counterpart to moving away from a reliance on TTPs as well as further ensuring the privacy of users on the network.
+
+
+\textbf{Blockchain Overhead}
+
+Due to the high volume of transactions, there is a large amount of overhead associated with blockchains. One way we address this is by having a routing method on top of the blockchain, which is used to manage load on the entire network and reduce the potential bottlenecks. To further reduce the overhead associated with all miners constantly mining at all times, a distributed time-based consensus algorithm restricts miners to only be able to mine a block after a predetermined time period. Another method is to use an offchain database (Commit to Pay [CTP]) to store pending transactions until both parties are able to confirm.
+
+\subsection{Routing method}
+
+For this thesis, the focus will be on the routing method on top of the blockchain. 
+
+Outlined in the SPB paper is a proposal for an Anonymous Routing Backbone (ARB) where nodes in the blockchain with significant resources eg. substations or controller centers, can serve as the backbone of the network. These nodes are responsible for routing transactions to the destination node. \cite{spb}
+
+Regular nodes use the IP address of backbones to send from source to a backbone node. The Open shortest path first (OSPF) algorithm is then responsible for routing from backbone to a target backbone node which will then route the transaction to the destination node. 
+
+Since it is inefficient and costly to store all node IP's and PK's, we utilize a distributed hash table (DHT) on top of the OSPF protocol. Each routing node would only need to store a database of other routing nodes. The DHT allows a source node to look up the corresponding backbone node related to the destination PK. 
+
+Thus, the ARB is based on the PK of nodes. The network is also able to reconstruct the hash table if the total load increases and more backbone nodes are added. To allow this, the X most significant bytes of the PK are used for routing, known as routing bytes (RB). \cite{spb}
+
+\subsection{Justification}
+
+As mentioned above, the use of the DHT is to allow backbone nodes to store fewer nodes in its database, allowing for faster lookup and transaction times. OSPF is an interior gateway protocol and used largely in large enterprise networks. \cite{ospf} It was chosen as a fast and reliable algorithm to connect and route transactions from source to destination
+
+\newpage
+
+\section{Estimation of workload}
+
+\begin{itemize}
+  \item Week 1-3: Research topics and understand how to integrate OSPF and DHT. Begin building algorithm
+  \item Week 3-5: Build up OSPF network to allow node to node communication (nodes based on python flask, using IP endpoints)
+  \item Week 5-7: Integrate DHT into the OSPF network to allow PK to PK communication. Swap out flask nodes for geth nodes on Raspberry Pi
+  \item Week 7-9: Benchmarking and potential integration with other student topics
+  \item Week 9-10: Further benchmarking and preperation for submission
+\end{itemize}
+
+
+\section{Work completed and next steps}
+
+\begin{itemize}
+  \item OSPF network almost set up with integration of DHT in progress
+     \begin{itemize}
+        \item Nodes are able to generate neighbouring pairs through the 'hello' protocol
+        \item The network map is able to be built with node flooding through the ARB
+        \item Dijkstra's algorithm is used to generate the shortest path from one backbone to another
+        \item Work on DHT to identify nodes using PK in progress
+     \end{itemize}
+  \item Need to replace flask nodes with geth nodes. Further work needed due to scaling issues with geth
+\end{itemize}

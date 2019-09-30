@@ -1,0 +1,11 @@
+\chapter{Introduction}\label{ch:intro}
+
+
+In current systems of electricity distribution, households who want to sell excess energy from their solar panels must sell back to their energy provider. This is not only unfair due to the 100 percent margin made by these distributors, but the system is centralized and inefficient due to the sending of electricity back and forth between producers and the energy company. In addition, taking into account the time and energy needed to transport electricity across long transmission lines, the need for a decentralized system of providing electricity to homes becomes apparent. 
+
+Nakamoto’s bitcoin paper \cite{bitcoinpaper} proposed the idea of a fully decentralized platform allowing the exchange of digital currency (bitcoin) between anonymous users, with all transactions on the network being verified through distributed consensus. This laid the framework for Ethereum 
+\cite{ethereumpaper}, which abstracts these transactions into changes in state, with ”Smart Contracts” facilitating transactions between users. This gave rise to a plethora of research, demonstrations, and proofs-of-concept regarding the use of Smart Contracts in facilitating decentralized energy trades. 
+
+Despite this research, blockchain continues to have issues regarding privacy, reliance on trusted third parties (TTP), and in particular performance and scalability of blockchain. Blockchain has inherently limited throughput and high latency \cite{Vuk16} the more transactions, the longer the chain gets, the longer it takes to process transactions. The Secure Private Blockchain-based framework (SPB) proposed by Dorri et. al. [2018] attempts to resolve the aforementioned issues. This thesis will focus on the issue of blockchain overhead, proposing potential methods of implementing the Anonymous Routing Backbone proposed in \cite{spb}.
+
+Chapter 2 explains the background for this document, covering the issues of previous work on smart energy grids and competitors leveraging the Ethereum blockchain. Chapter 3 explains how SPB aims to resolve the issue of blockchain overhead, presenting solutions for routing bottlenecks. This chapter also describes specific implementation details of SPB as proposed in the original paper \cite{spb}.

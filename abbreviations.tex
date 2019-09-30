@@ -1,0 +1,19 @@
+\chapter*{Abbreviations}\label{abbr}
+\begin{description}
+\item[OSPF] Open shortest path first
+\item[DHT] Distributed hash table
+\item[ARB] Anonymous Routing Backbone
+\item[PK] Public Key
+\item[enode] End Node: All non backbone nodes
+\item[bnode] Backbone node: Nodes that make up the backbone of a network map
+\end{description}
+
+
+\begin{description}
+\item[IRQN] Initial Request Neighbour: Sends a request payload to a neighbour to open a communication channel
+\item[IRQNR] Initial Request Neighbour Reply: A response to IRQN, replies with an acknowledgement payload. 
+\item[CRQNR] Confirm Request Neighbour Reply: A response to IRQNR, confirms an acknowledgement. Enforces a 'neighboured' state between two nodes
+\item[LSA] Linked State Advertisement: An advertisement protocol where nodes that have established a neighbour status can send out a their current view of the network map
+\item[ENCR] End Node Connection Request: Sent from an enode to a bnode when it wants to join a network via this bnode.
+\item[B2E] Bnode to Enode: A routing request from a bnode to an enode, sent when a bnode receives a routing request where its destination is a enode connected to itself.
+\end{description}

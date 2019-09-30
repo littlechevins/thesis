@@ -1,0 +1,37 @@
+\chapter{Explanation??}\label{ch:explanation}
+
+\section{How to solve??}
+
+To tackle the problem of blockchain overhead, we propose an Anonymous Routing Backbone (ARB). In conventional energy trading approaches, transactions are broadcasted using the target blockchain while incurs packet overheads and delays between negotiating nodes. We aim reduce this bottleneck with a solution of participating nodes in the blockchain that have significant resources. We let these nodes be substations or controller centers and they serve as the backbone nodes which are responsible for the routing of negotiation packets between communication nodes. 
+
+\section{Initialisation}
+
+\subsection{Establishing Neighbours with Handshakes}
+
+Each node begins by sending a IRQN packet to all of it's potential neighbours. Let us refer to the original broadcasting node as 'Node \textit{k}' and the potential neighbour node as 'Node \textit{j}' -we will focus on one neighbouring node- Node \textit{j} will then perform a check on the validity of the incoming packet. If the packet is validated, Node \textit{j} will declare itself as '2-way' with respect to Node \textit{k}. It will then reply with a IRQNR packet to Node \textit{k} which in turn will perform a similar validity check. Node \textit{k} will then set itself as '2-way' and broadcast a final confirmation packet -CRQNR- to Node \textit{j} which enforces a neighbouring state between the two nodes.
+
+These Handshakes happen simultaneously for all nodes in a potential network. If a node has already sent a IRQN packet to a specific node \textit{x}, it will discard all IRQN packets from node \textit{x} since it is waiting for a IRQNR reply. This lessens the computational load on nodes during the initial setup phase. All handshake packets are ignored between two nodes if they have already established a neighbouring state between each other.
+
+\subsection{Building the backbone map}
+
+We broadcast ourselves
+
+\subsection{Building DHT}
+As each new backbone comes in, we rebuild the dht table
+
+
+\section{During the run??}
+
+\subsection{New End Node}
+
+\subsection{New Backbone Node}
+
+\section{Features}
+
+\subsection{Denial of Service}
+
+\section{Implementation}
+
+The nodes are built on the Python Flask framework for reliability and speed. It uses the Requests library for sending and receiving packets.
+
+

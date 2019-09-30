@@ -1,0 +1,68 @@
+\chapter{Background}\label{ch:background}
+
+
+This chapter will cover previous work attempting to enhance blockchain performance and scalability, and how competitors have leveraged blockchain technologies to provide their own green energy platforms. This chapter will also analyze potential issues with these proposed systems and current state-of-the-art.
+
+\section{Previous work}
+
+\subsection{Washington State University demonstration}
+
+A team in Washington State University demonstrated a proof-of-concept of Ethereum smart contracts and how they can be leveraged for energy trading \cite{HSLC17}. They proposed an auctioning system consisting of Sellers and Bidders \cite[p.2]{HSLC17}. As all users are considered prosumers, Sellers and Bidders are not mutually exclusive any user can fulfill either or both roles. A single smart contract deployed on the blockchain stored data from Sellers, Bidders, and was responsible for the auction and payment functionality. Sellers advertise the energy quantity, bidders monitor the blockchain and pay the smart contract for the advertised energy, and the highest bidder is awarded the energy. \cite[p.3]{HSLC17}
+
+The demonstration involved three Beaglebone Black devices that each ran a light go-ethereum node \cite{HSLC17}. One acted as the Seller, and the other two acted as Bidders. Each Bidder represented a building with a HVAC system, whereby each building tried to purchase energy to maintain warm temperatures in the winter. Results of the simulation showed successful trading of energy, correct rewarding of the highest bidder, as well as the relative changes in building temperature.
+
+\subsection{Aalto University demonstration}
+
+Hukkinen [2018] proposed an energy trading system based on Ethereum smart contract technology that consists of Sellers and Buyers. Similar to \cite{HSLC17}, all users are considered prosumers. Sellers create offers to sell energy \cite[p.28]{Huk18}, and buyers accept the offer by pre-paying the smart contract. Once the payment is received, the energy transfer occurs, and then the Seller and Buyer report success of the energy transfer. If the Seller fails to provide energy, then another transaction is needed to pay back the Buyer. Hukkinen [2018] proposed off-chain sales offers as an alternative to having sales offers broadcasted to all nodes on the network \cite[p.41]{Huk18}. Sellers would instead cryptographically sign their offers and send them to potential buyers off-chain \cite[p.42]{Huk18}. Buyers then verify the authenticity of the offer by checking the signature, and accept the offer on-chain.
+
+Hukkinen [2018] conducted a simulation of this off-chain sales offering system on TestRPC on Ubuntu 16.04.3 \cite[p.47]{Huk18}. The gas consumption of the system was measured, revealing only a ten percent reduction relative to the on-chain solution \cite[p.52]{Huk18} and that gas consumption savings from the off-chain method did not scale with the number of trades \cite[p.48]{Huk18}.
+
+\subsection{Scaling PoW Blockchains}
+
+Vukolic [2016] discusses methods through which blockchain overhead can be reduced. PoW consensus provides decentraliation and node scalability, but has low throughput due to the possibility of forking chains, and has high latency due to the need to verify large numbers of blocks and transactions \cite[p.4]{Vuk16}. Byzantine-fault tolerant consensus has limited node scalability, but has increased performance \cite[p.4]{Vuk16}. The paper proposes improvements to PoW consensus based blockchains, such as the GHOST protocol \cite[p.9]{Vuk16}, and also suggests alternatives to using a PoW blockchain, such as a ”hybrid PoW/BFT protocol, using PoW for identity management and (parallel and hierachical) BFT consensus for agreement” \cite[p.11]{Vuk16}.
+
+\subsection{WePower}
+
+The WePower energy trading platform uses a public proof-of-work (PoW) Ethereum blockchain and allows green energy producers to pre-sell their energy in the form of energy tokens \cite{WeP17}. These tokens are a promise of producing the energy at a later date. This system lowers the barriers to entering the green energy production market which typically requires a large amount of capital, it is a simpler process to sell energy tokens in advance to raise money than negotiate with a bank. The tokens are smart contracts based on Ethereum’s ERC-20 standard, with each outlining when the energy will be produced and delivered, and the price tag of the token. Energy tokens can either be sold to other consumers, or once the energy has been produced, redeemed for energy.
+In terms of achievements, WePower has collaborated with Conquista Solar, a photovoltaic energy company based in Spain, to produce 300MW of electricity which is able to power approximately 150,000 households \cite{Hol18}. WePower is currently working with Elering, a national Estonian electricity distributor, to test the energy tokenization system in Estonia \cite{Deil18} and plans to become fully operational in Spain by December 2019, eventually expanding to all of Europe by 2020 \cite{WeP17}.
+
+\subsection{Power Ledger}
+
+The Power Ledger energy trading platform leverages their private proof-of-stake Ethereum blockchain, EcoChain. Users are able to produce excess energy, for example, photovoltaic energy, and then sell that energy to other users. Users can also be local energy retailers that sell to a few customers. Power Ledger uses two tokens: ”POWR”, and ”Sparkz”. ”POWR” tokens are a sign of membership and must be purchased in order to trade energy on the platform. ”Sparkz” tokens are tokenized energy. A user is rewarded with ”POWR” tokens every time they generate or purchase energy on the platform. The amount of ”Sparkz” a user is allowed to generate is directly proportional to the amount of ”POWR” tokens they possess, further incentivizing users to become long-term generators of energy and accumulate ”POWR” tokens.
+
+The energy-trading process is facilitated by a trade matching algorithm \cite{Led18}. It equitably distributes energy, meaning that wealthy individuals in a community cannot monopolize the energy. The algorithm also minimizes transmission distance between producer and consumer and considers geo-location priority, ensuring that energy naturally flows to the nearest consumption point. This reduces overall carbon emissions.
+Power Ledger is transitioning to an Ethereum Consortium blockchain \cite{Led18} which consists of a few pre-approved nodes. As a consortium blockchain is partially private and public, this minimizes the energy consumed in PoW algorithms as only the predetermined nodes need to verify transactions.
+
+\subsection{Grid+}
+
+Grid+ currently uses a public PoW Ethereum blockchain \cite{Gril18}. In contrast to WePower and Power Ledger, Grid+ operates as a commercial energy retailer. Payments for energy are made in Grid+’s stable, minted coin ”BOLT”. The only way to get these coins is by purchasing it from Grid+ using real-world currency. The main feature of Grid+ is their proposed ”Smart Agent” hardware, which is an internet-enabled, always-on appliance used to store cryptocurrencies and process energy payments. It automatically buys and sells electricity on behalf of the user whenever deemed necessary.
+
+In the short term, Grid+ plans to become a commercial energy retailer that offers significantly lower prices than traditional energy suppliers \cite{Gril18}. They plan to achieve this by leveraging their ”Smart Agent” hardware to lower variable costs typically associated with billing and settlement, and eliminate cost-related risks such as debts. They also plan to integrate the Raiden Network with their existing payment channels so that verification of transactions are done outside of the blockchain. The off-chain verification provided by the Raiden Network will speed up the processing of transactions, especially considering Ethereum’s increasing congestion due to increasing popularity.
+
+In the long term, Grid+ plans to implement P2P trading for users unwilling to interact directly with wholesale markets. Grid+ also plans to dynamically calculate distribution costs based on factors such as geography, network connection, and topology, as opposed to every user paying the same fixed price for energy.
+
+
+\section{Analysis of competitors and previous work}
+
+\subsection{Lack of privacy}
+
+Existing works identified in \cite{spb} have significant privacy flaws, as ”energy consumption or production patterns” can be traced back to a unique user \cite[p.1]{spb}. This is of particular importance in the context of a public Ethereum blockchain where potentially malicious nodes can easily access the network. This pattern is also reflected in \cite{HSLC17, Huk18, Vuk16, WeP17, Led18, Gril18} where either no reference has been made regarding privacy of users, or it was outside the scope of the paper.
+
+\subsection{Reliance on trusted third parties}
+
+A trusted third party (TTP) can view all actions performed by those in the network, thus compromising the privacy of users on the network. TTPs introduce a single point of failure, and potential performance bottlenecks \cite{spb}. Many existing works identified in \cite{spb} are only partially distributed. This is also reflected by systems proposed by WePower \cite{WeP17}, Power Ledger \cite{Led18}, and Grid+ \cite{Gril18}. Systems described in \cite{HSLC17} and \cite{Huk18} are assumed to be distributed, however due to the lack of exposition regarding the implementation details of the off-chain sales offerings system in 
+\cite{Huk18}, conclusions about its distributed nature cannot be confirmed.
+
+\subsection{Blockchain overhead}
+
+Limitations on computational, energy, and bandwidth resources impose several difficulties inhibiting the blockchain from becoming performant architecture \cite[p.2]{spb}. Mining a block requires significant computational resources, and the broadcasting of transactions to all nodes on the network requires significant bandwidth utilization. Analysis of the previous works identified in this paper reveals several flaws in their implementations.
+
+The system proposed by Hahn et. al. [2017] is identified as a proof-of-concept \cite[p.2]{HSLC17} thus no performance measures were recorded. However, the large number of transactions involved in advertising, paying the smart contract, and accepting bids from multiple bidders \cite[p.3]{HSLC17} will undoubtedly inhibit its ability to remain performant due to the limited throughput and high latency characteristic of a PoW consensus based blockchain \cite[p.4]{Vuk16}.
+
+In the original system in [Huk18], one energy trade involves five transactions and costs more than 400,000 gas. As a public Ethereum blockchain can only handle ”one trade per two seconds” \cite[p.37]{Huk18}, using it to serve platforms such as global credit-card companies that process 2000 to 10000 transactions per second \cite[p.2]{Vuk16} quickly becomes infeasible. Hukkinen [2018] identified high operating costs [Huk18, p. 39] and the use of smart contract persistent storage \cite[p.53]{Huk18} as limiting factors to blockchain performance, outlining several methods to reduce smart contract gas consumption in order to make the system more viable for wide-spread adoption \cite[p.40]{Huk18}. One of these methods is the off-chain sales. However, no offchain technologies were specified; this is identified as a limitation of the paper \cite[p.56]{Huk18}. Results found that gas consumption savings from the off-chain method did not scale with the number of trades \cite[p.48]{Huk18}. Although dealing with the sales offering and acceptance system is outside the scope of this thesis, there was a ten percent reduction in consumption compared to the on-chain solution \cite[p.52]{Huk18}, indicating potential that should be explored in future papers.
+
+The systems proposed by Vukolic [2016] such as the hybrid PoW/BFT blockchains \cite[p.11]{Vuk16} are based on the underlying idea of moving a subset of system functionality to be handled elsewhere, increasing the system’s overall performance by reducing blockchain congestion. This is also the core design motivation behind the Secure Private Blockchain’s (SPB) Commit To Pay (CTP) database that handles a portion of transactions off-chain, which was proposed by Dorri et. al. [2018].
+
+Power Ledger’s transition to an Ethereum Consortium blockchain raises several issues.The Ethereum Consortium blockchain can increase performance since only a certain number of pre-approved nodes need to verify each transaction [Led18, p. 24]. Regular user nodes can simply perform transactions, while the predetermined miner nodes process them. However, this re-introduces the issue regarding a single point of failure, which is the primary issue that blockchain attempts to alleviate through a distributed system, thus raising the issue of whether a blockchain is suitable for Power Ledger’s needs. Although technically there is no one point of failure, if the limited number of predetermined nodes are attacked, then the validity of all transactions on the system becomes compromised.
+
+Grid+ proposed the use of the Raiden Network, which attempts to resolve the predominant issues surrounding blockchain through a mesh network of payment channels and cryptography, overall providing lower fees, and faster transfer times \cite{Net17}. Although it is a work in progress and remains largely untested in real-world scenario and is outside the scope of this thesis, the apparent advantages in scalability indicates a potential opportunity that should be explored in future iterations of SPB.
