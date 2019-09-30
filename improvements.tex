@@ -1,13 +1,20 @@
 \chapter{Improvements}\label{ch:improvements}
 
-Time was a major factor in deciding which sections of the SPB paper where most important to implement. A key section that was included in the final project was a genuine private and public key pair for signing messages. This would have been used to prevent malicious nodes from falsely claiming to be another node since only the real node knows the private key.
+Time was a major factor in deciding which sections of the SPB paper where most important to implement. A key section that was left out in the final project was a full functional private and public key pair for signing messages. The original purpose of this safetly mechanism was to prevent malicious nodes from falsely claiming to be another node since only the genuine node knows the private key.
 
-Other aspects that could have been improved are:
+Some other aspects that could have been improved are:
 
 \begin{itemize}
   \item Reworking the DHT re-balancing system
   \begin{itemize}
-      \item Currentely
+      \item Currently, whenever a new bNode joins the network or if it experiences significant stress, a DHT re-balance will trigger, which will then be propagated throughout the network. This propagation has not been fully realised due to problems with reassigning eNodes to bNodes during a re-balance. The problem is temporary handled by having individual balances for every bNode whenever it receives new information on the network.
   \end{itemize}
-  \item Another entry in the list
+  \item Rework the Dijkstra algorithm to include a better cost system
+    \begin{itemize}
+      \item The featured Dijkstra algorithm has a hard-coded cost of one for each edge. At this stage, the exact cost from node to node would be a combination of distance, transportation cost, speed, network load and other factors that are yet to be studied. For this reason, it was left as one and to be further developed.
+    \end{itemize}
+  \item Network heartbeat
+      \begin{itemize}
+      \item Nodes would periodically broadcast a 'heartbeat' packet to its neighbours. If such a signal is not received within a certain time-frame, the node would be presumed dead and thus, would be removed from the network map
+      \end{itemize}
 \end{itemize}

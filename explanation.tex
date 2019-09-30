@@ -14,9 +14,30 @@ These Handshakes happen simultaneously for all nodes in a potential network. If 
 
 \subsection{Building the backbone map}
 
-We broadcast ourselves
+Once a node has successfully established a neighbouring state between all its neighbours it will begin to broadcast a 'LSA' packet to all its neighbours. This packet contains information on the current nodes knowledge of the network. Outlined in \textbf{**FIGURE**}, we can see that when another node receives this 'LSA' packet, it will rebuild its knowledge of the network and then pass this updated information onto its neighbouring nodes in the next pass of the 'LSA'. After the Handshake stage, all nodes are in a perpetual state of broadcasting. This is because no node can truely realise the full size of a given network since it will not know which node is the last in a map. An always broadcasting system allows for new bNodes to be quickly added into the network map and for new information to be rapidly propagated throughout the network.
+
 
 \subsection{Building DHT}
+
+Occurring simultaneously with 4.2.2, the DHT is rebuilt every time a the network map is updated for a given node. The reasoning for this scaled down solution is outlined in Chapter 5: Improvements. 
+
+In small scale systems, the key of a given node will be quite small as outlined in \textbf{**FFIGURE**}, we use a Routing Byte (RB) of 1. Routing bytes are the most significant figures of a given public key. As the routing bytes increase (due to system load), we must also increase the RB to try minimise the load on each node. 
+
+In order to do this, a base 36 system was developed for calculations with an alphanumerical system.
+
+\begin{center}
+    0123456789abcedfghijklmnopqrstuvwxyz
+\end{center}
+
+The RB is used to calculate the exact divide between the amount of nodes and the length of the RB
+
+\begin{center}
+    $$\frac{36^{RB}}{\text{n}} - 1$
+\end{center}
+
+Where n is the number of nodes in the network. We then encoded this number and the next one in sequence into base36 and then use it to split each node into a series of higher and lower key pairs as shown in \textbf{**FIGURE**}
+
+
 As each new backbone comes in, we rebuild the dht table
 
 
@@ -28,7 +49,7 @@ As each new backbone comes in, we rebuild the dht table
 
 \section{Features}
 
-\subsection{Denial of Service}
+\subsection{Denial of Service}ss
 
 \section{Implementation}
 
